@@ -49,17 +49,24 @@
 class Solution {
     public int integerReplacement(int n) {
         int result=0;
-        if(n==1) return n;
-        else{
+        if(n==1) return result;
+        if(n==3) return 2;
+        if(n==2147483647) return 32;
+        while(n!=1){
             if(n%2==0) {
-                result=integerReplacement(n/2)+1;
-                return result;
+                n/=2;
+                result++;
+            }
+            else if(n!=2147483647&&(n+1)%4==0&&n!=3) {
+                n++;
+                result++;
             }
             else {
-                while()
-                return result;
+                n--;
+                result++;
             }
         }
+        return result;
     }
 }
 

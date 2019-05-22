@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -33,20 +34,30 @@ import java.util.TreeSet;
  */
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        Set<List<Integer>> result = new TreeSet();
-        //List<List<Integer>> result = new ArrayList<>();
-        for(int i=0;i<nums.length;i++){
-            for(int j=i+1;j<nums.length;j++){
-                for(int k=j+1;k<nums.length;k++){
-                    if(nums[i]+nums[k]+nums[j]==0){
-                        List<Integer> resultCell = new ArrayList<>();
-                        resultCell.add(nums[i]);
-                        resultCell.add(nums[j]);
-                        resultCell.add(nums[k]);
-                        result.add(resultCell);
-                    } 
+        // 三个数，第一个base，第二个和第三个双指针扫描，求nums-i
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        for(int i=0;i<nums.length-2;i++){
+            int target = 0-nums[i];
+            for(int j=i+1,k=nums.length-1;j<k;){
+                if(nums[j]+nums[k]==target){
+                    List<Integer> listNow = new ArrayList<>();
+                    listNow.add(nums[i]);
+                    listNow.add(nums[j]);
+                    listNow.add(nums[k]);
+                    result.add(listNow);
                 }
+                if(nums[j]+nums[k]<target){
+                    do{
+                        j++;
+                        if(j>=k) break;
+                    }while(nums[j]==nums[j-1]);
+                }else do{
+                    k--;
+                    if(k<=j) break;
+                }while(nums[k]==nums[k+1]);
             }
+            while(i<nums.length-2&&nums[i+1]==nums[i]) i++;
         }
         return result;
     }

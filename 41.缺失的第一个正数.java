@@ -38,7 +38,23 @@
  */
 class Solution {
     public int firstMissingPositive(int[] nums) {
-        
+        if(nums.length==0) return 1;
+        if(nums.length==1){
+            if(nums[0]==1) return 2;
+            else return 1;
+        }
+        int i=0;
+        while(i<nums.length){
+            if(nums[i]==i+1||nums[i]<1||nums[i]>nums.length||nums[nums[i]-1]==nums[i]) i++;
+            else{
+                int mid = nums[nums[i]-1];
+                nums[nums[i]-1]=nums[i];
+                nums[i]=mid;
+            }
+        }
+        i=0;
+        while(i<nums.length&&nums[i]==i+1) i++;
+        return i+1; 
     }
 }
 

@@ -1,6 +1,4 @@
 import java.math.BigInteger;
-import java.util.ArrayList;
-
 /*
  * @lc app=leetcode.cn id=8 lang=java
  *
@@ -71,26 +69,51 @@ import java.util.ArrayList;
  */
 class Solution {
     public int myAtoi(String str) {
+        if(str.length()==0) return 0;
         char[] a = str.toCharArray();
-        ArrayList<String> result = new ArrayList<>();
-        Boolean flag = true;
+        List<Character> result = new ArrayList<>();
+        Boolean flag1 = false,flag2=false,ud=true;
         for(int i=0;i<a.length;i++){
-            if((result.size()==0)&&flag==true&&(a[i]!=' ')&&(a[i]!='-')&&(a[i]!='+')&&(a[i]<48||a[i]>57)) return 0;
-            if(a[i]=='-'&&result.size()==0) flag=false;
-            if(a[i]>=48&&a[i]<=57) result.add(((Character)a[i]).toString());
-            if(a[i]=='.') break;
+            if(a[i]==' '&&flag1==false&&result.size()==0) continue;
+            if(((a[i]=='+')||(a[i]=='-'))&&flag1==false&&flag2==false&&result.size()==0){
+                if(a[i]=='+') {
+                    flag1=true;
+                    flag2=true;
+                    continue;
+                }
+                if(a[i]=='-') {
+                    flag1=true;
+                    flag2=true;
+                    ud=false;
+                    continue;
+                }
+            }
+            if(Character.isDigit(a[i])&&(result.size()==0||Character.isDigit(result.get(result.size()-1)))){
+                result.add(a[i]);
+                continue;
+            }
+            if(result.size()>0&&(!Character.isDigit(a[i]))){
+                break;
+            }
+            return 0;
         }
         if(result.size()==0) return 0;
-        BigInteger bigInteger = new BigInteger(String.join("", result));
-        BigInteger up = new BigInteger("2147483647");
-        BigInteger down = new BigInteger("2147483648");
-        if(flag==true){
-            if(bigInteger.compareTo(up)==1) return 2147483647;
-            else return Integer.valueOf(String.join("", result));
+        String midAfter = result.toString();
+        midAfter = midAfter.replace("[", "");
+        midAfter = midAfter.replace(", ", "");
+        midAfter = midAfter.replace("]", "");
+        BigInteger resulty = new BigInteger(midAfter);
+        System.out.println(ud);
+        System.out.println(resulty);
+        if((resulty.compareTo(new BigInteger("2147483647"))>0)&&(ud==true)){
+            System.out.println("da");
+            return 2147483647;
+        }else if((resulty.compareTo(new BigInteger("2147483648"))>0)&&(ud==false)){
+            System.out.println("xiao");
+            return -2147483648;
         }else{
-            if(bigInteger.compareTo(down)==1) return -2147483648;
-            else return Integer.valueOf("-"+String.join("", result));
+            System.out.println("zhengchang");
+            return resulty.intValue()*(ud==true?1:(-1));
         }
     }
 }
-

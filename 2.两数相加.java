@@ -35,13 +35,62 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2){
-        if(l1==null) return l2;
+        if(l1==null) {
+            if(l2!=null)return l2;
+            else return null;
+        }
         if(l2==null) return l1;
-        ListNode result = new ListNode(l1.val+l2.val);
-        result.next = addTwoNumbers(l1.next, l2.next);
-        if(result.next.val>10){
-            result.next.val-=10;
-            result.val++;
+        ListNode result = new ListNode(0);
+        ListNode head = new ListNode(0);
+        ListNode l1n = new ListNode(0);
+        l1n.next = l1;
+        ListNode l2n = new ListNode(0);
+        l2n.next = l2;
+        head.next=result;
+        while(l1n.next!=null&&l2n.next!=null){
+            ListNode next = new ListNode(0);
+            head.next.val+=l1n.next.val+l2n.next.val;
+            if(head.next.val>=10){
+                head.next.val-=10;
+                next.val++;
+            }
+            if(l1n.next.next!=null&&l2n.next.next!=null){
+                head.next.next = next;
+                head.next=head.next.next;
+            }
+            if(l1n.next.next==null&&l2n.next.next==null&&next.val!=0){
+                head.next.next = next;
+                head.next=head.next.next;
+            }
+            if(l1n.next.next==null&&l2n.next.next!=null){
+                head.next.next=l2n.next.next;
+                if(next.val!=0){head.next.next.val++;}
+                while(head.next.next.val>=10){
+                    head.next.next.val-=10;
+                    if(head.next.next.next!=null){
+                        head.next.next.next.val++;
+                        head.next=head.next.next;
+                    }else{
+                        ListNode newNext = new ListNode(1);
+                        head.next.next.next = newNext;
+                    }
+                }
+            }else if(l1n.next.next!=null&&l2n.next.next==null){
+                head.next.next=l1n.next.next;
+                if(next.val!=0){head.next.next.val++;}
+                while(head.next.next.val>=10){
+                    head.next.next.val-=10;
+                    if(head.next.next.next!=null){
+                        head.next.next.next.val++;
+                        head.next=head.next.next;
+                    }else{
+                        ListNode newNext = new ListNode(1);
+                        head.next.next.next = newNext;
+                    }
+                }
+            }
+            l1n.next = l1n.next.next;
+            l2n.next = l2n.next.next;
         }
         return result;
     }

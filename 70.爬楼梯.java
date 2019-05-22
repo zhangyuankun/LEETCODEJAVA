@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * @lc app=leetcode.cn id=70 lang=java
  *
@@ -38,7 +41,13 @@
  */
 class Solution {
     public int climbStairs(int n) {
-        
+        List<Integer> result = new ArrayList<>();
+        result.add(1);
+        result.add(2);
+        for(int i=2;i<n;i++){
+            result.add(result.get(i-1)+result.get(i-2));
+        }
+        return result.get(n-1);
     }
 }
 

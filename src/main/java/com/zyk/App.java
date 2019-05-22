@@ -1,5 +1,8 @@
 package com.zyk;
 
+import java.math.BigInteger;
+import java.util.Arrays;
+
 /**
  * Hello world!
  *
@@ -7,32 +10,21 @@ package com.zyk;
 public class App 
 {
     static class Solution {
-        static public ListNode addTwoNumbers(ListNode l1, ListNode l2){
-            if(l1==null) return l2;
-            if(l2==null) return l1;
-            ListNode result = new ListNode(l1.val+l2.val);
-            result.next = addTwoNumbers(l1.next, l2.next);
-            if(result.next.val>10){
-                result.next.val-=10;
-                result.val++;
+        public static int numDecodings(String s) {
+            if(s==null||s.equals("")||s.charAt(0)=='0') return 0;
+            else if(s.length()==1) return 1;
+            else if(s.length()>1){
+                if((s.charAt(0)=='1')||(s.charAt(0)=='2'&&Integer.valueOf(s.charAt(1))<=6)){
+                    return numDecodings(s.substring(1))+numDecodings(s.substring(2))+1;
+                }
             }
-            return result;
+            return numDecodings(s.substring(1));
         }
     }
     public static void main(String[] args) {
-        ListNode a = new ListNode(2);
-        ListNode b = new ListNode(4);
-        ListNode c = new ListNode(3);
-        ListNode d = new ListNode(5);
-        ListNode e = new ListNode(6);
-        ListNode f = new ListNode(4);
-        a.next=b;
-        b.next=c;
-        d.next=e;
-        e.next=f;
-        System.out.println(Solution.addTwoNumbers(a,d));
+        int tmin = -2147483648;
+        System.out.println(tmin*(-1));
     }
-    
 }
 
 class ListNode {

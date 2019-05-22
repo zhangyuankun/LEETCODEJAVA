@@ -1,5 +1,3 @@
-import java.util.regex.Pattern;
-
 /*
  * @lc app=leetcode.cn id=434 lang=java
  *
@@ -26,10 +24,6 @@ import java.util.regex.Pattern;
  */
 class Solution {
     public int countSegments(String s) {
-        if(s=='""') return 0;
-        Pattern r = Pattern.compile("\\[^s]");
-        Matcher m =r.matcher(r);
-        String[] resultList = m.split("\\s");
-        return resultList.length;
+        return ((s==null||s.equals("")||s.split("\\s+").length==0)?0:((s.charAt(0)==(' '))?(s.split("\\s+").length-1):(s.split("\\s+").length)));
     }
 }

@@ -29,29 +29,83 @@
  */
 class Solution {
     public String longestPalindrome(String s) {
+        if(s.length()==0) return "";
+        
         char[] ss = s.toCharArray();
         int resultLength=1,resultb=0,resulta=0;
-        boolean flag=true;
-        for(int i=1;i<s.length()-1;i++){
-            int b=i-1,a=i+1;
-            flag=true;
-            while(b>=0&&a<s.length()&&flag==true){
-                if(ss[b]==ss[a]){
-                    b--;
-                    a++;
-                }else{
-                    b++;
-                    a--;
-                    flag=false;
+        int a=0,b=0,length=0;
+        for(int i=0;i<s.length();i++){
+            a=i;
+            b=i;
+            length=0;
+            if(a>0&&ss[a-1]==ss[i]) {
+                a--;
+                length++;
+                if(length>resultLength) {
+                    resulta=a;
+                    resultb=b;
+                    resultLength=length;
+                }
+                while(a>=0&&b<s.length()&&ss[a]==ss[b]){
+                    length+=2;
+                    if(length>resultLength) {
+                        resulta=a;
+                        resultb=b;
+                        resultLength=length;
+                    }
+                    if(a>0&&b<s.length()-1&&ss[a-1]==ss[b+1]){
+                        a--;
+                        b++;
+                        continue;
+                    }
+                    break;
                 }
             }
-            if(a-b+1>resultLength){
-                resultb=b;
-                resulta=a;
-                resultLength=a-b+1;
+            a=i;
+            b=i;
+            length=0;
+            if(b<s.length()-1&&ss[b+1]==ss[i]) {
+                b++;
+                length++;
+                if(length>resultLength) {
+                    resulta=a;
+                    resultb=b;
+                    resultLength=length;
+                }
+                while(a>=0&&b<s.length()&&ss[a]==ss[b]){
+                    length+=2;
+                    if(length>resultLength) {
+                        resulta=a;
+                        resultb=b;
+                        resultLength=length;
+                    }
+                    if(a>0&&b<s.length()-1&&ss[a-1]==ss[b+1]){
+                        a--;
+                        b++;
+                        continue;
+                    }
+                    break;
+                }
+            }
+            a=i;
+            b=i;
+            length=0;
+            while(a>=0&&b<s.length()&&ss[a]==ss[b]){
+                length+=2;
+                if(length>resultLength) {
+                    resulta=a;
+                    resultb=b;
+                    resultLength=length;
+                }
+                if(a>0&&b<s.length()-1&&ss[a-1]==ss[b+1]){
+                    a--;
+                    b++;
+                    continue;
+                }
+                break;
             }
         }
-        return String.copyValueOf(ss,resultb,resulta-resultb+1);
+        return String.copyValueOf(ss,resulta,resultb-resulta+1);
     }
 }
 

@@ -43,15 +43,26 @@ import java.util.Arrays;
  */
 class Solution {
     public int reverse(int x) {
-        char[] a = Character.toChars(x);
-        if(a[a.length-1]==0){
-            char[] result = Arrays.copyOf(a, a.length-2);
-            for(int i=0;i<result.length/2;i++){
-                char mid = result[i];
-                result[i]=result[result.length-i-1];
-                result[result.length-i-1]=result[i];
-            }
-            BigInteger bigInteger = new BigInteger(String.join("", result.toString()));
+        Boolean flag = true;
+        String mid = String.valueOf(x);
+        System.out.println(mid);
+        if(mid.contains("-")){
+            mid = mid.replace("-","");
+            flag=false;
+        }
+        char[] a = mid.toCharArray();
+        if(a[a.length-1]==0) a=Arrays.copyOf(a, a.length-1);
+        for(int i=0;i<a.length/2;i++){
+            char midd = a[i];
+            a[i] = a[a.length-i-1];
+            a[a.length-i-1] = midd; 
+        }
+        String midAfter = String.valueOf(a);
+        BigInteger result = new BigInteger(midAfter);
+        if(((result.compareTo(new BigInteger("2147483647"))>0)&&(flag==true))||((result.compareTo(new BigInteger("2147483648"))>0)&&(flag==false))){
+            return 0;
+        }else{
+            return result.intValue()*(flag==true?1:(-1));
         }
     }
 }

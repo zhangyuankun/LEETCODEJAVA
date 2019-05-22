@@ -35,17 +35,8 @@
  * 
  */
 class Solution {
-    /*public int divide(int dividend, int divisor) {
-        int result = 0;
-        if(dividend<0) dividend=-dividend;
-        if(divisor<0) divisor=-divisor;
-        if(dividend==0||dividend<divisor) return 0;
-        if(divisor==0) return 4294967295;
-        while(dividend>divisor){
-            dividend-=divisor;
-            result++;
-        }
-        return result;
-    }*/
+    public int divide(int dividend, int divisor) {
+
+    }
 }
 

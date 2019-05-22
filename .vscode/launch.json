@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - App$Solution",
+            "request": "launch",
+            "mainClass": "com.zyk.App$Solution",
+            "projectName": "LeetCodeJava"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - App",
             "request": "launch",
             "mainClass": "com.zyk.App",
