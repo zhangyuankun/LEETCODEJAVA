@@ -24,3 +24,7 @@ hs_err_pid*
 src
 target
 .sts4-cache
+.classpath
+.project
+.settings/
+pom.xml
